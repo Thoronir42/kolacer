@@ -14,13 +14,7 @@ hs_err_pid*
 History/
 *.zip
 build.xml
-nbproject/build-impl.xml
-nbproject/genfiles.properties
-nbproject/private/config.properties
-nbproject/private/private.properties
-nbproject/private/private.xml
-nbproject/project.properties
-nbproject/project.xml
+nbproject/*
 dist/nastaveniKolaceru.txt
 nastaveniKolaceru.txt
 manifest.mf
