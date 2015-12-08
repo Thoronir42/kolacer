@@ -10,3 +10,17 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/build/
+History/
+*.zip
+build.xml
+nbproject/build-impl.xml
+nbproject/genfiles.properties
+nbproject/private/config.properties
+nbproject/private/private.properties
+nbproject/private/private.xml
+nbproject/project.properties
+nbproject/project.xml
+dist/nastaveniKolaceru.txt
+nastaveniKolaceru.txt
+manifest.mf
