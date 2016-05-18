@@ -15,6 +15,6 @@ History/
 *.zip
 build.xml
 nbproject/*
-dist/nastaveniKolaceru.txt
+dist
 nastaveniKolaceru.txt
 manifest.mf
