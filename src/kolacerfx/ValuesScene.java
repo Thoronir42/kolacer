@@ -1,18 +1,23 @@
 package kolacerfx;
 
+import java.time.LocalDate;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Separator;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
@@ -60,9 +65,59 @@ public class ValuesScene extends Scene {
 		center.setAlignment(Pos.CENTER);
 		center.setHgap(6);
 		center.setVgap(4);
+		
+		center.add(createVariousPane(scene), 0, 0);
+		center.add(createItemsPane(scene), 1, 0);
+		center.add(createAppearancePane(scene), 2, 0);
+		
+		
+		return center;
+	}
 
-		scene.pieData = new ListView<>();
-		center.add(scene.pieData, 0, 0);
+	private static GridPane createVariousPane(ValuesScene scene){
+		GridPane left = new GridPane();
+		
+		LocalDate dateNow = LocalDate.now();
+		LocalDate dateThen = dateNow.minusWeeks(2);
+		
+		DatePicker dateFrom = new DatePicker(dateThen);
+		DatePicker dateTo = new DatePicker(dateNow);
+		
+		left.add(new Label("Období"), 0, 0, 3, 1);
+		left.add(new Label("Od"), 1, 1);
+		left.add(dateFrom, 2, 1);
+		left.add(new Label("Do"), 1, 2);
+		left.add(dateTo, 2, 2);
+		
+		return left;
+	}
+	
+	private static GridPane createItemsPane(ValuesScene scene){
+		GridPane middle = new GridPane();
+		middle.setAlignment(Pos.CENTER);
+		middle.setHgap(6);
+		middle.setVgap(4);
+
+		scene.pieDataView = new ListView<>();
+		
+		middle.add(scene.pieDataView, 0, 0);
+		
+		Button but_order = new Button("Seřadit");
+		but_order.setOnAction(e -> {
+			scene.orderItems();
+		});
+		
+		middle.add(but_order, 0, 1);
+		
+		
+		return middle;
+	}
+	
+	private static GridPane createAppearancePane(ValuesScene scene){
+		GridPane right = new GridPane();
+		right.setAlignment(Pos.CENTER);
+		right.setHgap(6);
+		right.setVgap(4);
 
 		VBox vbox_cpr = new VBox(6); // color picker radios
 		vbox_cpr.setPadding(new Insets(6));
@@ -77,16 +132,19 @@ public class ValuesScene extends Scene {
 		scene.toggleGroup_colorPicker.selectToggle(scene.radio_cp_random);
 		Label lbl_pickers = new Label("Způsob výběru barvy");
 		vbox_cpr.getChildren().addAll(lbl_pickers, scene.radio_cp_random, scene.radio_cp_gradient);
-
-		center.add(vbox_cpr, 1, 0);
-
-		return center;
+		
+		right.add(vbox_cpr, 0, 0);
+		right.add(new Separator(Orientation.HORIZONTAL), 0, 1);
+		right.add(new Button("Nastavit barevník"), 0, 2);
+		
+		return right;
 	}
-
+	////
+	
 	public final SimpleStringProperty title;
 
 	private final SimpleObjectProperty<DataSet> dataSet;
-	private ListView<DataItem> pieData;
+	private ListView<DataItem> pieDataView;
 
 	private final ToggleGroup toggleGroup_colorPicker;
 	private RadioButton radio_cp_random, radio_cp_gradient;
@@ -96,9 +154,9 @@ public class ValuesScene extends Scene {
 
 		title = new SimpleStringProperty("Koláčer");
 
-		dataSet = new SimpleObjectProperty<>();
+		dataSet = new SimpleObjectProperty<>(new DataSet());
 		dataSet.addListener((listener, o, n) -> {
-			this.pieData.setItems(n.Items);
+			this.pieDataView.setItems(n.Items);
 		});
 
 		toggleGroup_colorPicker = new ToggleGroup();
@@ -109,5 +167,9 @@ public class ValuesScene extends Scene {
 		DataSet set = DataParser.FinfoParser().parse(content);
 		System.out.format("[%s] - %d items\n", set.Title.get(), set.Items.size());
 		this.dataSet.set(set);
+	}
+
+	private void orderItems() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 }

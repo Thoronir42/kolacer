@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.layout.BorderPane;
-import kolacerfx.Colors.IColorPicker;
+import kolacerfx.Colors.Pickers.IColorPicker;
 
 /**
  *

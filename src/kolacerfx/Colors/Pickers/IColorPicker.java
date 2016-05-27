@@ -1,4 +1,4 @@
-package kolacerfx.Colors;
+package kolacerfx.Colors.Pickers;
 
 import javafx.scene.paint.Color;
 

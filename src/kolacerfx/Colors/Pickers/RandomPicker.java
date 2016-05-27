@@ -1,4 +1,4 @@
-package kolacerfx.Colors;
+package kolacerfx.Colors.Pickers;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +8,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import javafx.scene.paint.Color;
+import kolacerfx.Colors.ColorBundle;
+import kolacerfx.Colors.LabeledColor;
 
 /**
  *
